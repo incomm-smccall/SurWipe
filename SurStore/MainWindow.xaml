@@ -1,0 +1,84 @@
+﻿<Window x:Class="SurStore.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SurStore"
+        mc:Ignorable="d"
+        Title="SurSecure" Height="527" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="MainWindowResource.xaml" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10" />
+            <RowDefinition Height="130" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="105" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ListView x:Name="FileListView" Grid.Row="1" Grid.Column="1">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="225" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Type" Width="125" DisplayMemberBinding="{Binding Type}" />
+                    <GridViewColumn Header="Path" DisplayMemberBinding="{Binding Path}" />
+                    <GridViewColumn Header="" DisplayMemberBinding="{Binding Result}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 15 0">
+            <Button Content="Add File" Click="BtnAddFile_Click" Margin="0 0 5 0" Background="White" Style="{StaticResource RoundButton}" />
+            <Button Content="Remove File" Click="BtnRemoveFile_Click" Background="White" Style="{StaticResource RoundButton}" />
+        </StackPanel>
+        <ListBox x:Name="FolderListView" Grid.Row="3" Grid.Column="1" Height="100" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 15 0">
+            <Button Content="Add Folder" Click="BtnAddFolder_Click" Margin="0 0 5 0" Background="White" Style="{StaticResource RoundButton}" />
+            <Button Content="Remove Folder" Click="BtnRemoveFolder_Click" Background="White" Style="{StaticResource RoundButton}" />
+        </StackPanel>
+        <ListView x:Name="UsbListView" Grid.Row="5" Grid.Column="1">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <RadioButton GroupName="usbdrives" Checked="Checkbox_Checked" Content="{Binding UsbCaption}" IsChecked="{Binding UsbChecked}" />
+                                    <!--<CheckBox Checked="Checkbox_Checked" Content="{Binding UsbCaption}" IsChecked="{Binding UsbChecked}" />-->
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
+            <Label Content="Password" />
+            <PasswordBox Width="300" Height="20" x:Name="InputPassword" />
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal">
+            <Button Content="Encrypt" Click="BtnEncrypt_Click" Style="{StaticResource RoundButton}" Margin="5 0 5 0" />
+            <Button Content="Decrypt" Click="BtnDecrypt_Click" Style="{StaticResource RoundButton}" Margin="0 0 5 0" />
+            <CheckBox Content="Shred Original" VerticalAlignment="Center" Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" />
+        </StackPanel>
+        <DockPanel Grid.Row="8" Grid.Column="1">
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBarItem>
+                    <TextBlock x:Name="resultMsg" Width="350" Height="20" />
+                </StatusBarItem>
+                <Separator />
+                <StatusBarItem>
+                    <TextBlock x:Name="completedIn" Width="300" Height="20" />
+                </StatusBarItem>
+            </StatusBar>
+        </DockPanel>
+    </Grid>
+</Window>
